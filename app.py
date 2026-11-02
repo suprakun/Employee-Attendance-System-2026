@@ -3,7 +3,12 @@ import sqlite3, csv, io, os
 from datetime import date, timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, 'attendance.db')
+# Vercel's application bundle is read-only. Use its temporary writable directory
+# for a demo database; use the project folder for local development.
+DB_PATH = os.environ.get(
+    'DB_PATH',
+    '/tmp/attendance.db' if os.environ.get('VERCEL') else os.path.join(BASE_DIR, 'attendance.db')
+)
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'change-this-secret-key-for-production')
 

@@ -75,3 +75,8 @@ Attendance percentage = (Present records ÷ all recorded statuses) × 100. The r
 
 ## GitHub upload
 Upload `app.py`, `requirements.txt`, `README.md`, and the `templates/` and `static/` folders. Do not upload `.venv/`, `__pycache__/`, or real employee personal data. You may omit `attendance.db` so each evaluator gets a clean database with sample data.
+
+
+## Vercel deployment note
+
+The app uses `/tmp/attendance.db` when running on Vercel so the Flask function can initialize its demo database in a writable location. This is **temporary, non-persistent storage**: data can disappear when the serverless instance is recycled and may not be shared between instances. Use a hosted PostgreSQL database and update the database layer before using this deployment for real employee attendance records.
