@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Attendly — Workforce Overview{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark"><span></span><span></span><span></span></span><span>attendly<span class="brand-dot">.</span><small>WORKFORCE ANALYTICS</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-list">
+      <a class="nav-link {% if active=='dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}"><span class="nav-icon">▦</span>Overview</a>
+      <a class="nav-link {% if active=='employees' %}active{% endif %}" href="{{ url_for('employees') }}"><span class="nav-icon">♙</span>Employees</a>
+      <a class="nav-link {% if active=='attendance' %}active{% endif %}" href="{{ url_for('attendance') }}"><span class="nav-icon">◷</span>Mark attendance</a>
+      <a class="nav-link {% if active=='records' %}active{% endif %}" href="{{ url_for('records') }}"><span class="nav-icon">▤</span>Attendance records</a>
+      <a class="nav-link {% if active=='reports' %}active{% endif %}" href="{{ url_for('reports') }}"><span class="nav-icon">⌁</span>Reports & insights</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="help-card"><div class="help-icon">✦</div><strong>Need a hand?</strong><p>Explore the README for setup instructions and project details.</p><a href="https://github.com" target="_blank" rel="noreferrer">Project resources ↗</a></div><div class="user-mini"><div class="avatar">AD</div><div><strong>Administrator</strong><small>Workspace admin</small></div><span class="online-dot"></span></div></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>{% block crumb %}Overview{% endblock %}</strong></div><div class="top-actions"><span class="today-pill">● &nbsp;System active</span><div class="top-avatar">AD</div></div></header>
+    <div class="page-wrap">
+      {% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}<button onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+      <footer class="footer"><span>© {{ today[:4] }} Attendly · Employee Attendance Analysis System</span><span>Built with Python & Flask <b>●</b></span></footer>
+    </div>
+  </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body></html>
